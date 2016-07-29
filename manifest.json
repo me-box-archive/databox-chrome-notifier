@@ -1,0 +1,10 @@
+{
+    "manifest_version": 2,
+    "name": "Databox Notifier",
+    "description": "Receive notifications from databox",
+    "version": "0.1",
+    "permissions": ["gcm", "storage", "notifications"],
+    "background": {
+        "scripts": ["popup.js"]
+    }
+}
