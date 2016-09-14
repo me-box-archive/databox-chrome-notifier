@@ -34,7 +34,7 @@ function firstTime() {
             return;
 
         // Up to 100 senders are allowed.
-        var senderIds = ["470853081985"];
+        var senderIds = getSenders();
         chrome.gcm.register(senderIds, registerCallback);
     });
 }
