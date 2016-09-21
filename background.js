@@ -4,11 +4,8 @@ function getNotificationId() {
 }
 
 function registerCallback(registrationId) {
-    alert(registrationId);
-    var views = chrome.extension.getViews({type: "popup"});
-    for (var i = 0; i < views.length; i++) {
-                views[i].document.getElementById('firebase_token').innerHTML=registrationId;
-        }
+    console.log(registrationId);
+    localStorage.setItem("fcm", registrationId);
     if (chrome.runtime.lastError) {
         // When the registration fails, handle the error and retry the
         // registration later.
@@ -17,11 +14,7 @@ function registerCallback(registrationId) {
 
     // Send the registration token to your application server.
     sendRegistrationId(function (succeed) {
-        // Once the registration token is received by your server,
-        // set the flag such that register will not be invoked
-        // next time when the app starts up.
-        //if (succeed)
-        chrome.storage.local.set({ registered: true });
+       localStorage.setItem("registered", "true");
     });
 }
 
@@ -31,17 +24,13 @@ function sendRegistrationId(callback) {
 }
 
 function firstTime() {
-    alert("start");
-    chrome.storage.local.get("registered", function (result) {
-        // If already registered, bail out.
-        if (result["registered"])
-            return;
-
-        // Up to 100 senders are allowed.
-        var senderIds = getSenders();
-    alert(senderIds[0]);
-        chrome.gcm.register(senderIds, registerCallback);
-    });
+    // var result = localStorage.getItem("registered");
+    // if(result){
+    //     return;
+    // }
+    // Up to 100 senders are allowed.
+    var senderIds = getSenders();
+    chrome.gcm.register(senderIds, registerCallback);
 }
 
 chrome.gcm.onMessage.addListener(function (message) {
