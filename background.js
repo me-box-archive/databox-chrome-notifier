@@ -4,8 +4,11 @@ function getNotificationId() {
 }
 
 function registerCallback(registrationId) {
-    console.log(registrationId);
-    document.getElementsByClassName("firebase_token")[0].innerHTML = registrationId
+    alert(registrationId);
+    var views = chrome.extension.getViews({type: "popup"});
+    for (var i = 0; i < views.length; i++) {
+                views[i].document.getElementById('firebase_token').innerHTML=registrationId;
+        }
     if (chrome.runtime.lastError) {
         // When the registration fails, handle the error and retry the
         // registration later.
@@ -28,7 +31,7 @@ function sendRegistrationId(callback) {
 }
 
 function firstTime() {
-    console.log("start");
+    alert("start");
     chrome.storage.local.get("registered", function (result) {
         // If already registered, bail out.
         if (result["registered"])
@@ -36,6 +39,7 @@ function firstTime() {
 
         // Up to 100 senders are allowed.
         var senderIds = getSenders();
+    alert(senderIds[0]);
         chrome.gcm.register(senderIds, registerCallback);
     });
 }
