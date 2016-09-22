@@ -5,6 +5,10 @@
     "version": "0.1",
     "permissions": ["gcm", "storage", "notifications"],
     "background": {
-        "scripts": ["popup.js"]
+        "scripts": ["fcm_config.js","background.js"]
+    },
+    "browser_action": {
+        "default_popup": "popup.html"
     }
+
 }
