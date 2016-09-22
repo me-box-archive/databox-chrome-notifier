@@ -15,11 +15,12 @@ copy `fcm_config.js`
 Populate the `senders` array with the sender ID from Firebase.
 
 Install the extension in chrome using the extensions
-settings screen.
+settings screen. Tick `Developer Mode`, and choose
+`Load unpacked extension`. Browse to the databox-chrome-notifier source directory.
 
 ## Usage
 
 It is not currently possible to save the FCM
 registration to the databox, so the extension
-has limited use at present. Fixing this requires
-knowing where/how the details are to be stored.
+displays the token in a popup, so that it can be
+entered manually.
